@@ -1,0 +1,58 @@
+{
+  "Routes": [
+    // Comments module
+    {
+      "UpstreamPathTemplate": "/api/comment/{rest}",
+      "UpstreamHttpMethod": [],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "commentsapi",
+          "Port": 5001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/comment/{rest}"
+    },
+    // Users module
+    {
+      "UpstreamPathTemplate": "/api/auth/{rest}",
+      "UpstreamHttpMethod": [],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usersapi",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/auth/{rest}"
+    },
+    // Movies module
+    {
+      "UpstreamPathTemplate": "/api/movie/{rest}",
+      "UpstreamHttpMethod": [],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "moviesapi",
+          "Port": 5003
+        }
+      ],
+      "DownstreamPathTemplate": "/api/movie/{rest}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/genre/{rest}",
+      "UpstreamHttpMethod": [],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "moviesapi",
+          "Port": 5003
+        }
+      ],
+      "DownstreamPathTemplate": "/api/genre/{rest}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}
