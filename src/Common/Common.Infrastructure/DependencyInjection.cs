@@ -1,4 +1,5 @@
-﻿using Common.Domain.Interfaces;
+﻿using Common.Application.Interfaces;
+using Common.Domain.Interfaces;
 using Common.Infrastructure.Persistance;
 using Common.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +13,9 @@ public static class DependencyInjection
     public static IServiceCollection AddCommonInfrastructure(this IServiceCollection services)
     {
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         services.AddScoped<IDateProvider, DateProvider>();
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
 
         return services;
     }

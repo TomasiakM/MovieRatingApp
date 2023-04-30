@@ -1,4 +1,5 @@
-﻿using Common.Domain.Exceptions;
+﻿using Common.Application.Interfaces;
+using Common.Domain.Exceptions;
 using MediatR;
 using Users.Application.Interfaces;
 using Users.Domain.Aggregates.Users.ValueObjects;
@@ -9,15 +10,18 @@ internal class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordComm
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHashService _hashService;
-    public UpdatePasswordCommandHandler(IUnitOfWork unitOfWork, IHashService hashService)
+    private readonly IAuthenticationService _authenticationService;
+
+    public UpdatePasswordCommandHandler(IUnitOfWork unitOfWork, IHashService hashService, IAuthenticationService authorizationService)
     {
         _unitOfWork = unitOfWork;
         _hashService = hashService;
+        _authenticationService = authorizationService;
     }
 
     public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
     {
-        var userId = new UserId();
+        var userId = new UserId(_authenticationService.GetUserId());
         var user = await _unitOfWork.Users.GetAsync(userId);
 
         if (user is null || !_hashService.VerifyPassword(request.Password, user.Password))
