@@ -15,7 +15,7 @@ public static class DependencyInjection
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddScoped<IDateProvider, DateProvider>();
-        services.AddScoped<IAuthenticationService, AuthenticationService>();
+        //services.AddScoped<IAuthenticationService, AuthenticationService>();
 
         return services;
     }

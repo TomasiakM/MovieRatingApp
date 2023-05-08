@@ -2,4 +2,6 @@
 public record UpdateMovieRequest(
     string Title,
     string Description,
-    string Image);
+    string Image,
+    string Premiere,
+    string GenreId);

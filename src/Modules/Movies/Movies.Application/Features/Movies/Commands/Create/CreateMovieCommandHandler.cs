@@ -20,7 +20,7 @@ internal class CreateMovieCommandHandler : IRequestHandler<CreateMovieCommand>
             request.Description,
             request.Image,
             DateOnly.Parse(request.Premiere),
-            new GenreId(new Guid(request.MovieGenreId)));
+            new GenreId(new Guid(request.GenreId)));
 
         _unitOfWork.Movies.Add(movie);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

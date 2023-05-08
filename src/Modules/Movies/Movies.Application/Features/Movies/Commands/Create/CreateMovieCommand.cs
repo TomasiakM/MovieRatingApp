@@ -6,4 +6,4 @@ public record CreateMovieCommand(
     string Description,
     string Image,
     string Premiere,
-    string MovieGenreId) : IRequest;
+    string GenreId) : IRequest;

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Movies.Domain.Aggregates.Genres;
+using Movies.Application.Dtos.Genre.Responses;
 
 namespace Movies.Application.Features.Genres.Queries.GetAll;
-public record GetAllGenresQuery() : IRequest<List<Genre>>;
+public record GetAllGenresQuery() : IRequest<ICollection<GenreResponse>>;
