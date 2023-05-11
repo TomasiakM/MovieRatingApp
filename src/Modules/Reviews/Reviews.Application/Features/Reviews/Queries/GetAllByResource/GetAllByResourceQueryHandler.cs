@@ -1,20 +1,27 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
+using Reviews.Application.Dtos.Reviews.Responses;
 using Reviews.Application.Interfaces;
-using Reviews.Domain.Aggregates.Reviews;
 
 namespace Reviews.Application.Features.Reviews.Queries.GetAllByResource;
-internal class GetAllByResourceQueryHandler : IRequestHandler<GetAllByResourceQuery, ICollection<Review>>
+internal class GetAllByResourceQueryHandler : IRequestHandler<GetAllByResourceQuery, ICollection<ReviewResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public GetAllByResourceQueryHandler(IUnitOfWork unitOfWork)
+    public GetAllByResourceQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
-    public async Task<ICollection<Review>> Handle(GetAllByResourceQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<ReviewResponse>> Handle(GetAllByResourceQuery request, CancellationToken cancellationToken)
     {
-        return await _unitOfWork.Reviews
+        var reviews = await _unitOfWork.Reviews
             .FindAllAsync(e => e.ResourceId == request.ResourceId);
+
+        var reviewsDto = _mapper.Map<ICollection<ReviewResponse>>(reviews);
+
+        return reviewsDto;
     }
 }

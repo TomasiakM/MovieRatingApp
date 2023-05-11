@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using Reviews.Domain.Aggregates.Reviews;
+using Reviews.Application.Dtos.Reviews.Responses;
 
 namespace Reviews.Application.Features.Reviews.Queries.GetCretedByUserInResource;
 public record GetCretedByUserInResourceQuery(
-    Guid ResourceId): IRequest<Review>;
+    Guid ResourceId): IRequest<ReviewResponse>;

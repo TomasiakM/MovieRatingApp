@@ -32,7 +32,7 @@ public class ReviewController : ControllerBase
         return Ok(reviews);
     }
 
-    [HttpGet("/user/{resourceId}")]
+    [HttpGet("user/{resourceId}")]
     public async Task<IActionResult> GetUserReview(Guid resourceId)
     {
         var query = new GetCretedByUserInResourceQuery(resourceId);
