@@ -12,15 +12,15 @@ public sealed class Comment : AggregateRoot<CommentId>
 {
     internal const int EditCommentAvailabilityInMinutes = 10;
 
-    public CreatorId CreatorId { get; private set; }
-    public ResourceId ResourceId { get; init; }
+    public Guid CreatorId { get; private set; }
+    public Guid ResourceId { get; init; }
     public CommentContent CommentContent { get; private set; }
     public DateTimeOffset CreatedAt { get; init; }
 
     private List<Reply> _replies = new();
     public IReadOnlyList<Reply> Replies => _replies.AsReadOnly();
 
-    public Comment(CreatorId creatorId, ResourceId resourceId, CommentContent commentContent, IDateProvider dateProvider) 
+    public Comment(Guid creatorId, Guid resourceId, CommentContent commentContent, IDateProvider dateProvider) 
         : base(new CommentId())
     {
         CreatorId = creatorId;
@@ -29,7 +29,7 @@ public sealed class Comment : AggregateRoot<CommentId>
         CreatedAt = dateProvider.UtcNow;
     }
 
-    public void Update(CommentContent commentContent, CreatorId updaterId, IDateProvider dateProvider)
+    public void Update(CommentContent commentContent, Guid updaterId, IDateProvider dateProvider)
     {
         if (CreatorId != updaterId)
         {
@@ -44,13 +44,13 @@ public sealed class Comment : AggregateRoot<CommentId>
         CommentContent = commentContent;
     }
 
-    public void AddReply(CreatorId creatorId, CommentContent commentContent, IDateProvider dateProvider)
+    public void AddReply(Guid creatorId, CommentContent commentContent, IDateProvider dateProvider)
     {
         var reply = new Reply(creatorId, commentContent, dateProvider);
         _replies.Add(reply);
     }
 
-    public void UpdateReply(ReplyId replyId, CreatorId updaterId, CommentContent commentContent, IDateProvider dateProvider)
+    public void UpdateReply(Guid replyId, Guid updaterId, CommentContent commentContent, IDateProvider dateProvider)
     {
         var reply = _replies.FirstOrDefault(e => e.Id == replyId);
 

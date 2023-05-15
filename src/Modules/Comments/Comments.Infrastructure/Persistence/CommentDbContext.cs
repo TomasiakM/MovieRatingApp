@@ -1,5 +1,4 @@
 ﻿using Comments.Domain.Aggregates.Comments;
-using Comments.Domain.Aggregates.Creators;
 using Common.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +10,6 @@ internal sealed class CommentDbContext : AppDbContext
     private readonly IConfiguration _configuration;
 
     public DbSet<Comment> Comments => Set<Comment>();
-    public DbSet<Creator> Creators => Set<Creator>();
 
     public CommentDbContext(IConfiguration configuration)
     {

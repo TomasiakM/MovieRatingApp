@@ -24,24 +24,6 @@ internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
                 e => e.Value,
                 e => new(e));
 
-        builder.Property(e => e.CreatorId)
-            .HasConversion(
-                e => e.Value,
-                e => new(e));
-        builder.HasOne<Creator>()
-            .WithMany()
-            .HasForeignKey(e => e.CreatorId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        builder.Property(e => e.ResourceId)
-            .HasConversion(
-                e => e.Value,
-                e => new(e));
-        builder.HasOne<Resource>()
-            .WithMany()
-            .HasForeignKey(e => e.ResourceId)
-            .OnDelete(DeleteBehavior.NoAction);
-
         builder.Metadata.FindNavigation(nameof(Comment.Replies))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
 
@@ -62,14 +44,6 @@ internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
                 .HasConversion(
                     e => e.Value,
                     e => new(e));
-
-            rb.Property(e => e.CreatorId)
-                .HasConversion(
-                    e => e.Value,
-                    e => new(e));
-            rb.HasOne<Creator>()
-                .WithMany()
-                .HasForeignKey(e => e.CreatorId);
         });
     }
 }
