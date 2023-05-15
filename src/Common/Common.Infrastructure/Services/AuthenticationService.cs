@@ -5,13 +5,13 @@ using System.Security.Claims;
 namespace Common.Infrastructure.Services;
 internal class AuthenticationService : IAuthenticationService
 {
-    private readonly HttpContextAccessor _contextAccessor;
+    private readonly IHttpContextAccessor _contextAccessor;
     private string? _userId => _contextAccessor.HttpContext!.User.Claims
         .FirstOrDefault(e => e.Type == ClaimTypes.NameIdentifier)?.Value;
 
     public bool IsAuthorized => _userId != null;
 
-    public AuthenticationService(HttpContextAccessor contextAccessor)
+    public AuthenticationService(IHttpContextAccessor contextAccessor)
     {
         _contextAccessor = contextAccessor;
     }

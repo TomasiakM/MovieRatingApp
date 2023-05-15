@@ -1,6 +1,5 @@
 using Users.Application;
 using Users.Infrastructure;
-using Users.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 app.Run();

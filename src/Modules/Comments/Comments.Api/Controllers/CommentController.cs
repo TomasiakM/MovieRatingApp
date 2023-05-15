@@ -4,6 +4,7 @@ using Comments.Application.Features.Comments.Commands.CreateReply;
 using Comments.Application.Features.Comments.Queries.GetAllByResource;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Comments.Api.Controllers;
@@ -30,6 +31,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPost("{resourceId}")]
+    [Authorize]
     public async Task<IActionResult> CreateComment(Guid resourceId, CreateCommentRequest request)
     {
         var command = _mapper.Map<CreateCommentCommand>((resourceId, request));
@@ -39,6 +41,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPost("{commentId}/reply")]
+    [Authorize]
     public async Task<IActionResult> CreateReply(Guid commentId, CreateReplyRequest request)
     {
         var command = _mapper.Map<CreateReplyCommand>((commentId, request));

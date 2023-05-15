@@ -1,5 +1,6 @@
 ﻿using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Dtos.Genre.Requests;
 using Movies.Application.Features.Genres.Commands.Create;
@@ -31,6 +32,7 @@ public class GenreController : ControllerBase
         return Ok(genres);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(CreateGenreRequest request)
     {
@@ -41,6 +43,7 @@ public class GenreController : ControllerBase
     }
 
     [HttpPut("{genreId}")]
+    [Authorize]
     public async Task<IActionResult> Update(Guid genreId, UpdateGenreRequest request)
     {
         var command = _mapper.Map<UpdateGenreCommand>((genreId, request));
@@ -50,6 +53,7 @@ public class GenreController : ControllerBase
     }
 
     [HttpDelete("{genreId}")]
+    [Authorize]
     public async Task<IActionResult> Delete(Guid genreId)
     {
         var command = new DeleteGenreCommand(genreId);

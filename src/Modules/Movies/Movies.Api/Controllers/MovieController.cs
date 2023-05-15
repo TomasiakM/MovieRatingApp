@@ -1,5 +1,6 @@
 ﻿using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Dtos.Movies.Requests;
 using Movies.Application.Features.Movies.Commands.Create;
@@ -42,6 +43,7 @@ public class MovieController : ControllerBase
     }
 
     [HttpPost()]
+    [Authorize]
     public async Task<IActionResult> Create(CreateMovieRequest request)
     {
         var command = _mapper.Map<CreateMovieCommand>(request);
@@ -51,6 +53,7 @@ public class MovieController : ControllerBase
     }
 
     [HttpPut("{movieId}")]
+    [Authorize]
     public async Task<IActionResult> Update(Guid movieId, UpdateMovieRequest request)
     {
         var command = _mapper.Map<UpdateMovieCommand>((movieId, request));
@@ -60,6 +63,7 @@ public class MovieController : ControllerBase
     }
 
     [HttpDelete("{movieId}")]
+    [Authorize]
     public async Task<IActionResult> Delete(Guid movieId)
     {
         var command = new DeleteMovieCommand(movieId);

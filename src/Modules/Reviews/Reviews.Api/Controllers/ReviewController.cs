@@ -1,5 +1,6 @@
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reviews.Application.Dtos.Reviews.Requests;
 using Reviews.Application.Features.Reviews.Commands.Create;
@@ -33,6 +34,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpGet("user/{resourceId}")]
+    [Authorize]
     public async Task<IActionResult> GetUserReview(Guid resourceId)
     {
         var query = new GetCretedByUserInResourceQuery(resourceId);
@@ -42,6 +44,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpPost("{resourceId}")]
+    [Authorize]
     public async Task<IActionResult> Create(Guid resourceId, CreateReviewRequest request)
     {
         var command = _mapper.Map<CreateReviewCommand>((resourceId, request));
@@ -51,6 +54,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpPut("{reviewId}")]
+    [Authorize]
     public async Task<IActionResult> Update(Guid reviewId, UpdateReviewRequest request)
     {
         var command = _mapper.Map<UpdateReviewCommand>((reviewId, request));
@@ -60,6 +64,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpDelete("{reviewId}")]
+    [Authorize]
     public async Task<IActionResult> Delete(Guid reviewId)
     {
         var command = new DeleteReviewCommand(reviewId);

@@ -1,5 +1,6 @@
 using Images.Api.Models;
 using Images.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Images.Api.Controllers;
@@ -15,6 +16,7 @@ public class ImageUploadController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> UploadImage(IFormFile image)
     {
         var res = await _uploadService.UploadImage(image);

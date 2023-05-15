@@ -1,6 +1,8 @@
 ﻿using Common.Infrastructure;
 using Common.Infrastructure.Extentions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +19,27 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        var cookieSettings = new CookieSettings();
+        configuration.GetSection(nameof(CookieSettings)).Bind(cookieSettings);
+
         services.AddCommonInfrastructure();
+        services.AddModuleAuthorization()
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            {
+                options.Cookie.Name = cookieSettings.Name;
+                options.ExpireTimeSpan = TimeSpan.FromDays(cookieSettings.ExpiryDays);
+
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.HttpOnly = true;
+
+                options.LoginPath = "/api/auth/login";
+                options.LogoutPath = "/api/auth/logout";
+
+                options.SlidingExpiration = true;
+            });
+
+        services.AddAppSwagger();
 
         services.AddAppDbContext<UserDbContext>();
 
@@ -66,7 +88,7 @@ public static class DependencyInjection
             adminPassword,
             "admin@mail.com");
 
-        user.AddRole(Role.AdminRole.Id);
+        user.AddRole(Role.AdminRoleId);
 
         return user;
     }
