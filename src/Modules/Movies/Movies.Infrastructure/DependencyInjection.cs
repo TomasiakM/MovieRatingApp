@@ -13,6 +13,8 @@ public static class DependencyInjection
         services.AddCommonInfrastructure();
         services.AddModuleAuthorization();
 
+        services.AddAppSwagger();
+
         services.AddAppDbContext<MovieDbContext>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
