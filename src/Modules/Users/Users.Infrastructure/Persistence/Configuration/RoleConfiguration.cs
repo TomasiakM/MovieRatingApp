@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Users.Domain.Aggregates.Roles;
-using Users.Domain.Aggregates.Roles.ValueObjects;
 
 namespace Users.Infrastructure.Persistence.Configuration;
 internal class RoleConfiguration : IEntityTypeConfiguration<Role>
@@ -11,10 +10,6 @@ internal class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder.ToTable("Roles");
 
         builder.HasKey(e => e.Id);
-        builder.Property(e => e.Id)
-            .HasConversion(
-                e => e.Value,
-                e => new RoleId(e));
 
         builder.Property(e => e.Name)
             .HasMaxLength(32);

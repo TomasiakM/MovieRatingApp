@@ -1,7 +1,4 @@
 ﻿using Comments.Domain.Aggregates.Comments;
-using Comments.Domain.Aggregates.Comments.ValueObjects;
-using Comments.Domain.Aggregates.Creators;
-using Comments.Domain.Aggregates.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,10 +11,7 @@ internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
 
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id)
-            .ValueGeneratedNever()
-            .HasConversion(
-                e => e.Value,
-                e => new(e));
+            .ValueGeneratedNever();
 
         builder.Property(e => e.CommentContent)
             .HasConversion(
@@ -35,10 +29,6 @@ internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
                 .HasForeignKey("CommentId");
 
             rb.HasKey(e => e.Id);
-            rb.Property(e => e.Id)
-                .HasConversion(
-                    e => e.Value,
-                    e => new(e));
 
             rb.Property(e => e.CommentContent)
                 .HasConversion(

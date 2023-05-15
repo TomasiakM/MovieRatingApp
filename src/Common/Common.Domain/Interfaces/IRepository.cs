@@ -1,12 +1,10 @@
-﻿using Common.Domain.DDD;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Common.Domain.Interfaces;
-public interface IRepository<TEntity, TId>
+public interface IRepository<TEntity>
     where TEntity : IAggregateRoot
-    where TId : ValueObject
 {
-    Task<TEntity?> GetAsync(TId id);
+    Task<TEntity?> GetAsync(object id);
     Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression);
 
     Task<List<TEntity>> GetAllAsync();

@@ -1,12 +1,10 @@
-﻿using Common.Domain.DDD;
-using Common.Domain.Interfaces;
+﻿using Common.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Common.Infrastructure.Persistance;
-public class Repository<TEntity, TId> : IRepository<TEntity, TId>
+public class Repository<TEntity> : IRepository<TEntity>
     where TEntity : class, IAggregateRoot
-    where TId : ValueObject
 {
     protected AppDbContext _dbContext;
     protected DbSet<TEntity> _dbSet;
@@ -17,7 +15,7 @@ public class Repository<TEntity, TId> : IRepository<TEntity, TId>
         _dbSet = dbContext.Set<TEntity>();
     }
 
-    public async Task<TEntity?> GetAsync(TId id)
+    public async Task<TEntity?> GetAsync(object id)
     {
         return await _dbSet.FindAsync(id);
     }

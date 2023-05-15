@@ -19,7 +19,7 @@ internal class MovieConfiguration : IRegister
 
         config.NewConfig<(Movie movie, Genre genre), MovieResponse>()
             .Map(dest => dest.Genre, src => src.genre)
-            .Map(dest => dest.Id, src => src.movie.Id.Value)
+            .Map(dest => dest.Id, src => src.movie.Id)
             .Map(dest => dest, src => src.movie);
     }
 }

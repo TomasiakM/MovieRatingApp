@@ -1,11 +1,9 @@
-﻿using Common.Domain.DDD;
-
-namespace Users.Domain.Aggregates.Roles.ValueObjects;
-public sealed class RoleId : ValueObject
+﻿namespace Common.Domain.DDD;
+public class IdItem : ValueObject
 {
     public Guid Value { get; init; }
 
-    public RoleId(Guid value)
+    public IdItem(Guid value)
     {
         Value = value;
     }

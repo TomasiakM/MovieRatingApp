@@ -4,7 +4,7 @@ using Reviews.Domain.Aggregates.Reviews.ValueObjects;
 
 namespace Reviews.Domain.Aggregates.Reviews;
 
-public sealed class Review : AggregateRoot<ReviewId>
+public sealed class Review : AggregateRoot
 {
     public Guid CreatorId { get; private set; }
     public Guid ResourceId { get; private set; }
@@ -12,7 +12,7 @@ public sealed class Review : AggregateRoot<ReviewId>
     public Rating Rating { get; private set; }
 
     public Review(Guid creatorId, Guid resourceId, ReviewContent reviewContent, Rating rating) 
-        : base(new ReviewId()) 
+        : base(Guid.NewGuid()) 
     { 
         CreatorId = creatorId;
         ResourceId = resourceId;
@@ -31,5 +31,5 @@ public sealed class Review : AggregateRoot<ReviewId>
         Rating = rating;
     }
 
-    private Review() : base(new ReviewId()) { }
+    private Review() : base(Guid.NewGuid()) { }
 }

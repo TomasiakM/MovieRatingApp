@@ -1,14 +1,12 @@
 ﻿using Comments.Domain.Aggregates.Comments.Entities;
 using Comments.Domain.Aggregates.Comments.ValueObjects;
-using Comments.Domain.Aggregates.Creators.ValueObjects;
-using Comments.Domain.Aggregates.Resources.ValueObjects;
 using Comments.Domain.Exceptions.Comments;
 using Common.Domain.DDD;
 using Common.Domain.Exceptions;
 using Common.Domain.Interfaces;
 
 namespace Comments.Domain.Aggregates.Comments;
-public sealed class Comment : AggregateRoot<CommentId>
+public sealed class Comment : AggregateRoot
 {
     internal const int EditCommentAvailabilityInMinutes = 10;
 
@@ -21,7 +19,7 @@ public sealed class Comment : AggregateRoot<CommentId>
     public IReadOnlyList<Reply> Replies => _replies.AsReadOnly();
 
     public Comment(Guid creatorId, Guid resourceId, CommentContent commentContent, IDateProvider dateProvider) 
-        : base(new CommentId())
+        : base(Guid.NewGuid())
     {
         CreatorId = creatorId;
         ResourceId = resourceId;
@@ -62,5 +60,5 @@ public sealed class Comment : AggregateRoot<CommentId>
         reply.Update(updaterId, commentContent, dateProvider);
     }
 
-    private Comment() : base(new CommentId()) { }
+    private Comment() : base(Guid.NewGuid()) { }
 }

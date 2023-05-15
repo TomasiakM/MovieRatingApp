@@ -1,13 +1,12 @@
 ﻿using Common.Domain.DDD;
-using Movies.Domain.Aggregates.Genres.ValueObjects;
 
 namespace Movies.Domain.Aggregates.Genres;
-public sealed class Genre : AggregateRoot<GenreId>
+public sealed class Genre : AggregateRoot
 {
     public string Name { get; private set; }
 
     public Genre(string name)
-        : base(new GenreId())
+        : base(Guid.NewGuid())
     {
         Name = name;
     }
@@ -17,6 +16,6 @@ public sealed class Genre : AggregateRoot<GenreId>
         Name = name;
     }
 
-    private Genre() : base(new GenreId()) { }
+    private Genre() : base(Guid.NewGuid()) { }
 
 }

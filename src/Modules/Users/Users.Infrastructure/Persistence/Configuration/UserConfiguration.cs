@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Users.Domain.Aggregates.Roles;
-using Users.Domain.Aggregates.Roles.ValueObjects;
 using Users.Domain.Aggregates.Users;
-using Users.Domain.Aggregates.Users.ValueObjects;
-using Users.Infrastructure.Services;
 
 namespace Users.Infrastructure.Persistence.Configuration;
 internal class Userconfiguration : IEntityTypeConfiguration<User>
@@ -14,10 +11,6 @@ internal class Userconfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("Users");
 
         builder.HasKey(e => e.Id);
-        builder.Property(e => e.Id)
-            .HasConversion(
-                e => e.Value,
-                e => new UserId(e));
 
         builder.HasIndex(e => e.UserName)
             .IsUnique();
@@ -44,20 +37,16 @@ internal class Userconfiguration : IEntityTypeConfiguration<User>
         {
             roleIdsBuilder.ToTable("User_Role");
 
-            roleIdsBuilder.HasKey("Id");
             roleIdsBuilder.WithOwner()
-                .HasForeignKey(nameof(UserId));
+                .HasForeignKey("UserId");
 
-            roleIdsBuilder.Property(e => e.Id)
-                .HasColumnName(nameof(RoleId))
-                .ValueGeneratedNever()
-                .HasConversion(
-                    e => e.Value,
-                    e => new(e));
+            roleIdsBuilder.Property(e => e.Value)
+                .HasColumnName("RoleId")
+                .ValueGeneratedNever();
 
             roleIdsBuilder.HasOne<Role>()
                 .WithMany()
-                .HasForeignKey(e => e.Id);
+                .HasForeignKey(e => e.Value);
         });
     }
 }

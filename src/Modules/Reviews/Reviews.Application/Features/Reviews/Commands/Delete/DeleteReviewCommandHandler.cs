@@ -18,8 +18,7 @@ internal class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand>
 
     public async Task Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
     {
-        var reviewId = new ReviewId(request.ReviewId);
-        var review = await _unitOfWork.Reviews.GetAsync(reviewId);
+        var review = await _unitOfWork.Reviews.GetAsync(request.ReviewId);
 
         if (review is null)
         {

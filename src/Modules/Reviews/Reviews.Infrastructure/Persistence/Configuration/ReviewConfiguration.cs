@@ -12,9 +12,7 @@ internal class ReviewConfiguration : IEntityTypeConfiguration<Review>
 
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id)
-            .HasConversion(
-                e => e.Value,
-                e => new ReviewId(e));
+            .ValueGeneratedNever();
 
         builder.Property(e => e.Rating)
             .HasConversion(

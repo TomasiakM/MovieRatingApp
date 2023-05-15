@@ -4,14 +4,14 @@ using Common.Domain.DDD;
 using Common.Domain.Interfaces;
 
 namespace Comments.Domain.Aggregates.Comments.Entities;
-public sealed class Reply : Entity<ReplyId>
+public sealed class Reply : Entity<Guid>
 {
     public Guid CreatorId { get; private set; }
     public CommentContent CommentContent { get; private set; }
     public DateTimeOffset CreatedAt { get; init; }
 
     public Reply(Guid creatorId, CommentContent commentContent, IDateProvider dateProvider)
-        : base(new ReplyId())
+        : base(Guid.NewGuid())
     {
         CreatorId = creatorId;
         CommentContent = commentContent;
@@ -33,5 +33,5 @@ public sealed class Reply : Entity<ReplyId>
         CommentContent = commentContent;
     }
 
-    private Reply() : base(new ReplyId()) { }
+    private Reply() : base(Guid.NewGuid()) { }
 }

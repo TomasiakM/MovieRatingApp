@@ -1,8 +1,6 @@
 ﻿using Comments.Application.Interfaces;
 using Comments.Domain.Aggregates.Comments;
 using Comments.Domain.Aggregates.Comments.ValueObjects;
-using Comments.Domain.Aggregates.Creators.ValueObjects;
-using Comments.Domain.Aggregates.Resources.ValueObjects;
 using Common.Application.Interfaces;
 using Common.Domain.Interfaces;
 using MediatR;
@@ -23,11 +21,10 @@ internal class CreateCommentCommandHandler : IRequestHandler<CreateCommentComman
 
     public async Task Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {
-        var creatorId = new CreatorId(_authenticationService.GetUserId());
 
         var comment = new Comment(
-            creatorId,
-            new ResourceId(request.ResourseId),
+            _authenticationService.GetUserId(),
+            request.ResourseId,
             new CommentContent(request.Content),
             _dateProvider);
 

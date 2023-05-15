@@ -2,6 +2,6 @@
 using Common.Domain.Interfaces;
 
 namespace Comments.Domain.Aggregates.Comments;
-public interface ICommentRepository : IRepository<Comment, CommentId>
+public interface ICommentRepository : IRepository<Comment>
 {
 }

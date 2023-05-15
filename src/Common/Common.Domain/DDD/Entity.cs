@@ -14,7 +14,6 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
         return obj is Entity<TId> entity && Id.Equals(entity.Id);
     }
 
-
     public static bool operator ==(Entity<TId> left, Entity<TId> right)
     {
         return Equals(left, right);
@@ -32,14 +31,5 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
     public override int GetHashCode()
     {
         return Id.GetHashCode();
-    }
-}
-
-public abstract class Entity : Entity<Guid>
-{
-    public Entity(Guid id)
-        : base(id)
-    {
-
     }
 }

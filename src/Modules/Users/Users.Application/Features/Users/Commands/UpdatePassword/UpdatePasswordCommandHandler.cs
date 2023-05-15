@@ -2,7 +2,6 @@
 using Common.Domain.Exceptions;
 using MediatR;
 using Users.Application.Interfaces;
-using Users.Domain.Aggregates.Users.ValueObjects;
 using Users.Domain.Interfaces;
 
 namespace Users.Application.Features.Users.Commands.UpdatePassword;
@@ -21,8 +20,7 @@ internal class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordComm
 
     public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
     {
-        var userId = new UserId(_authenticationService.GetUserId());
-        var user = await _unitOfWork.Users.GetAsync(userId);
+        var user = await _unitOfWork.Users.GetAsync(_authenticationService.GetUserId());
 
         if (user is null || !_hashService.VerifyPassword(request.Password, user.Password))
         {

@@ -17,6 +17,6 @@ internal class GenreConfiguration : IRegister
             .Map(dest => dest, src => src.request);
 
         config.NewConfig<Genre, GenreResponse>()
-            .Map(dest => dest.Id, src => src.Id.Value);
+            .Map(dest => dest.Id, src => src.Id);
     }
 }

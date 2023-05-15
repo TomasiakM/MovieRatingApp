@@ -3,7 +3,6 @@ using MapsterMapper;
 using MediatR;
 using Movies.Application.Dtos.Movies.Responses;
 using Movies.Application.Interfaces;
-using Movies.Domain.Aggregates.Movies.ValueObjects;
 
 namespace Movies.Application.Features.Movies.Queries.GetById;
 internal class GetMovieByIdQueryHandler : IRequestHandler<GetMovieByIdQuery, MovieResponse>
@@ -19,8 +18,7 @@ internal class GetMovieByIdQueryHandler : IRequestHandler<GetMovieByIdQuery, Mov
 
     public async Task<MovieResponse> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
     {
-        var movieId = new MovieId(request.MovieId);
-        var movie = await _unitOfWork.Movies.GetAsync(movieId);
+        var movie = await _unitOfWork.Movies.GetAsync(request.MovieId);
 
         if (movie is null)
         {

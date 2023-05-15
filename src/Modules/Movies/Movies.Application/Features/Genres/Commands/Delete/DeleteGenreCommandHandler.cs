@@ -1,7 +1,6 @@
 ﻿using Common.Domain.Exceptions;
 using MediatR;
 using Movies.Application.Interfaces;
-using Movies.Domain.Aggregates.Genres.ValueObjects;
 
 namespace Movies.Application.Features.Genres.Commands.Delete;
 internal class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand>
@@ -15,8 +14,7 @@ internal class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand>
 
     public async Task Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
     {
-        var genreId = new GenreId(request.GenreId);
-        var genre = await _unitOfWork.Genres.GetAsync(genreId);
+        var genre = await _unitOfWork.Genres.GetAsync(request.GenreId);
 
         if (genre is null)
         {

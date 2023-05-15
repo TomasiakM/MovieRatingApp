@@ -1,6 +1,5 @@
 ﻿using Comments.Application.Interfaces;
 using Comments.Domain.Aggregates.Comments.ValueObjects;
-using Comments.Domain.Aggregates.Creators.ValueObjects;
 using Common.Application.Interfaces;
 using Common.Domain.Exceptions;
 using Common.Domain.Interfaces;
@@ -22,18 +21,15 @@ internal class CreateReplyCommandHandler : IRequestHandler<CreateReplyCommand>
 
     public async Task Handle(CreateReplyCommand request, CancellationToken cancellationToken)
     {
-        var commentId = new CommentId(request.CommentId);
-        var comment = await _unitOfWork.Comments.GetAsync(commentId);
+        var comment = await _unitOfWork.Comments.GetAsync(request.CommentId);
 
         if (comment is null)
         {
             throw new NotFoundException();
         }
 
-        var creatorId = new CreatorId(_authenticationService.GetUserId());
-
         comment.AddReply(
-            creatorId,
+            _authenticationService.GetUserId(),
             new CommentContent(request.Content),
             _dateProvider);
 

@@ -19,7 +19,7 @@ internal class ReviewConfiguration : IRegister
             .Map(dest => dest, src => src.request);
 
         config.NewConfig<Review, ReviewResponse>()
-            .Map(dest => dest.Id, src => src.Id.Value)
+            .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Text, src => src.ReviewContent.Value)
             .Map(dest => dest.Rating, src => src.Rating.Value);
     }
