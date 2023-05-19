@@ -55,5 +55,10 @@ public class User : AggregateRoot
         _roleIds.Remove(role);
     }
 
+    public bool IsAdmin()
+    {
+        return _roleIds.Any(e => e.Value == Role.AdminRoleId);
+    }
+
     private User() : base(Guid.NewGuid()) { }
 }

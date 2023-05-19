@@ -1,0 +1,51 @@
+{
+  "Routes": [
+    // [GET] api/reviews/{resourceId}
+    {
+      "UpstreamPathTemplate": "/api/review/{resourceId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/review/{resourceId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reviews_api",
+          "Port": 80
+        }
+      ]
+    },
+    // [GET] api/reviews/user/{resourceId}
+    {
+      "UpstreamPathTemplate": "/api/review/user/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/review/user/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reviews_api",
+          "Port": 80
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    // [POST, PUT, DELETE] api/reviews/user/{resourceId/reviewId}
+    {
+      "UpstreamPathTemplate": "/api/review/{id}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/review/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reviews_api",
+          "Port": 80
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    }
+  ]
+}

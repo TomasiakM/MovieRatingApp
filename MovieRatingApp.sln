@@ -61,7 +61,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reviews.Infrastructure", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{856D3BAD-6F13-471C-B8A6-39BA1161619D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Images.Api", "src\Modules\Images\Images.Api\Images.Api.csproj", "{26732511-3C8B-4E14-8B8D-A881758F680C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Images.Api", "src\Modules\Images\Images.Api\Images.Api.csproj", "{26732511-3C8B-4E14-8B8D-A881758F680C}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E6A462A9-04D6-4739-AB22-0571754E7F01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +155,10 @@ Global
 		{26732511-3C8B-4E14-8B8D-A881758F680C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26732511-3C8B-4E14-8B8D-A881758F680C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26732511-3C8B-4E14-8B8D-A881758F680C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6A462A9-04D6-4739-AB22-0571754E7F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6A462A9-04D6-4739-AB22-0571754E7F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6A462A9-04D6-4739-AB22-0571754E7F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6A462A9-04D6-4739-AB22-0571754E7F01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

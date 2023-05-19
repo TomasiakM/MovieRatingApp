@@ -1,0 +1,34 @@
+{
+  "Routes": [
+    // [GET] api/comment/{resourceId}
+    {
+      "UpstreamPathTemplate": "/api/comment/{resourceId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/comment/{resourceId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "comments_api",
+          "Port": 80
+        }
+      ]
+    },
+    // [POST] api/comment/{rest} rest=[ /{resourceId}, /{commentId}/reply ]
+    {
+      "UpstreamPathTemplate": "/api/comment/{rest}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/api/comment/{rest}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "comments_api",
+          "Port": 80
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    }
+  ]
+}

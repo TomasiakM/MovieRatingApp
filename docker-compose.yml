@@ -1,0 +1,85 @@
+version: '3.4'
+
+services:
+  reviews.api:
+    container_name: "reviews_api"
+    image: ${DOCKER_REGISTRY-}reviewsapi
+    build:
+      context: .
+      dockerfile: src/Modules/Reviews/Reviews.Api/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://0.0.0.0:80
+        - ConnectionStrings__DbConnection=Server=db,1433;Database=Reviews;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True
+
+  comments.api:
+    container_name: "comments_api"
+    image: ${DOCKER_REGISTRY-}commentsapi
+    build:
+      context: .
+      dockerfile: src/Modules/Comments/Comments.Api/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://0.0.0.0:80
+        - ConnectionStrings__DbConnection=Server=db,1433;Database=Comments;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True
+
+  images.api:
+    container_name: "images_api"
+    image: ${DOCKER_REGISTRY-}imagesapi
+    build:
+      context: .
+      dockerfile: src/Modules/Images/Images.Api/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://0.0.0.0:80
+        - Urls__ImageUpload=${IMGBB_UPLOAD_URL}
+
+  movies.api:
+    container_name: "movies_api"
+    image: ${DOCKER_REGISTRY-}moviesapi
+    build:
+      context: .
+      dockerfile: src/Modules/Movies/Movies.Api/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://0.0.0.0:80
+        - ConnectionStrings__DbConnection=Server=db,1433;Database=Movies;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True
+            
+  users.api:
+    container_name: "users_api"
+    image: ${DOCKER_REGISTRY-}usersapi
+    build:
+      context: .
+      dockerfile: src/Modules/Users/Users.Api/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://0.0.0.0:80
+        - ConnectionStrings__DbConnection=Server=db,1433;Database=Users;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True
+        - JwtSettings__Secret=${JWT_SECRET}
+        - JwtSettings__Issuer=${JWT_ISSUER}
+        - JwtSettings__ExpiryMinutes=${JWT_EXPIRY_MINUTES}
+        - CookieSettings__Name=${COOKIE_NAME}
+        - CookieSettings__ExpiryDays=${COOKIE_EXPIRY_DAYS}
+  apigateway:
+    container_name: "api_gateway"
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: src/Gateway/ApiGateway/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://+:443;http://+:80
+        - JwtSettings__Secret=${JWT_SECRET}
+        - JwtSettings__Issuer=${JWT_ISSUER}
+    ports:
+       - "5000:80"
+
+  db:
+    container_name: "sql_server"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    environment:
+        SA_PASSWORD: "P@ssw0rd"
+        ACCEPT_EULA: "Y"
+    ports:
+        - "1433:1433"
+

@@ -28,12 +28,12 @@ internal sealed class TokenService : ITokenService
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, Role.UserRole.Id.ToString()),
+            new Claim(ClaimTypes.Role, Role.UserRole.Name),
         };
 
-        if(user.RoleIds.Any(e => e.Value == Role.AdminRole.Id))
+        if(user.IsAdmin())
         {
-            claims.Add(new Claim(ClaimTypes.Role, Role.AdminRole.Id.ToString()));
+            claims.Add(new Claim(ClaimTypes.Role, Role.AdminRole.Name));
         }
 
 
