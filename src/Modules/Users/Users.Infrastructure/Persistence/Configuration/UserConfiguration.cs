@@ -28,7 +28,7 @@ internal class Userconfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(256);
 
         builder.Property(e => e.Image)
-            .HasMaxLength(32);
+            .HasMaxLength(64);
 
         builder.Metadata.FindNavigation(nameof(User.RoleIds))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);

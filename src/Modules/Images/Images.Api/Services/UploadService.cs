@@ -15,7 +15,7 @@ public class UploadService : IUploadService
 
     public async Task<string> UploadImage(IFormFile file)
     {
-        string uploadUrl = _configuration.GetSection("Urls")["ImageUpload"];
+        var uploadUrl = _configuration.GetSection("Urls")["ImageUpload"]!;
 
         var ms = new MemoryStream();
         file.CopyTo(ms);

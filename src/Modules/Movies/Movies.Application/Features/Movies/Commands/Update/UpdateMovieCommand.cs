@@ -7,4 +7,4 @@ public record UpdateMovieCommand(
     string Description,
     string Image,
     string Premiere,
-    string MovieGenreId) : IRequest;
+    string GenreId) : IRequest;

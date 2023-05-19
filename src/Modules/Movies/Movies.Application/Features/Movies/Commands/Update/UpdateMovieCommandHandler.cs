@@ -26,7 +26,7 @@ internal class UpdateMovieCommandHandler : IRequestHandler<UpdateMovieCommand>
             request.Description,
             request.Image,
             DateOnly.Parse(request.Premiere),
-            new Guid(request.MovieGenreId));
+            new Guid(request.GenreId));
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
